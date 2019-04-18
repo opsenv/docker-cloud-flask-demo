@@ -1,0 +1,32 @@
+stages:
+  - style
+  - test
+  
+pep8:
+  stage: style
+  script:
+    - echo "nameserver 114.114.114.114" > /etc/resolv.conf
+    - ping -c 4 baidu.com
+    - hostname -i
+    - pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com tox
+    - tox -e pep8
+  tags:
+    - python2.7
+
+unittest-py27:
+  stage: test
+  script:
+    - echo "nameserver 114.114.114.114" > /etc/resolv.conf
+    - pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com tox
+    - tox -e py27
+  tags:
+    - python2.7
+    
+unittest-py34:
+  stage: test
+  script:
+    - echo "nameserver 114.114.114.114" > /etc/resolv.conf
+    - pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com tox
+    - tox -e py34
+  tags:
+    - python3.4
